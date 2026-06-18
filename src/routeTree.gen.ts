@@ -9,8 +9,38 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as TeeRouteImport } from './routes/tee'
+import { Route as ReturnsRouteImport } from './routes/returns'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as BespokeRouteImport } from './routes/bespoke'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 
+const TeeRoute = TeeRouteImport.update({
+  id: '/tee',
+  path: '/tee',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ReturnsRoute = ReturnsRouteImport.update({
+  id: '/returns',
+  path: '/returns',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BespokeRoute = BespokeRouteImport.update({
+  id: '/bespoke',
+  path: '/bespoke',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -19,28 +49,90 @@ const IndexRoute = IndexRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/bespoke': typeof BespokeRoute
+  '/contact': typeof ContactRoute
+  '/returns': typeof ReturnsRoute
+  '/tee': typeof TeeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/bespoke': typeof BespokeRoute
+  '/contact': typeof ContactRoute
+  '/returns': typeof ReturnsRoute
+  '/tee': typeof TeeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/bespoke': typeof BespokeRoute
+  '/contact': typeof ContactRoute
+  '/returns': typeof ReturnsRoute
+  '/tee': typeof TeeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/about' | '/bespoke' | '/contact' | '/returns' | '/tee'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/about' | '/bespoke' | '/contact' | '/returns' | '/tee'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/bespoke'
+    | '/contact'
+    | '/returns'
+    | '/tee'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  BespokeRoute: typeof BespokeRoute
+  ContactRoute: typeof ContactRoute
+  ReturnsRoute: typeof ReturnsRoute
+  TeeRoute: typeof TeeRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/tee': {
+      id: '/tee'
+      path: '/tee'
+      fullPath: '/tee'
+      preLoaderRoute: typeof TeeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/returns': {
+      id: '/returns'
+      path: '/returns'
+      fullPath: '/returns'
+      preLoaderRoute: typeof ReturnsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bespoke': {
+      id: '/bespoke'
+      path: '/bespoke'
+      fullPath: '/bespoke'
+      preLoaderRoute: typeof BespokeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -53,6 +145,11 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  BespokeRoute: BespokeRoute,
+  ContactRoute: ContactRoute,
+  ReturnsRoute: ReturnsRoute,
+  TeeRoute: TeeRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
