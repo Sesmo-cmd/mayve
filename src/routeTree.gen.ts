@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TeeRouteImport } from './routes/tee'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ReturnsRouteImport } from './routes/returns'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as BespokeRouteImport } from './routes/bespoke'
@@ -19,6 +20,11 @@ import { Route as IndexRouteImport } from './routes/index'
 const TeeRoute = TeeRouteImport.update({
   id: '/tee',
   path: '/tee',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ReturnsRoute = ReturnsRouteImport.update({
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/bespoke': typeof BespokeRoute
   '/contact': typeof ContactRoute
   '/returns': typeof ReturnsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tee': typeof TeeRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/bespoke': typeof BespokeRoute
   '/contact': typeof ContactRoute
   '/returns': typeof ReturnsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tee': typeof TeeRoute
 }
 export interface FileRoutesById {
@@ -70,13 +78,28 @@ export interface FileRoutesById {
   '/bespoke': typeof BespokeRoute
   '/contact': typeof ContactRoute
   '/returns': typeof ReturnsRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tee': typeof TeeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/bespoke' | '/contact' | '/returns' | '/tee'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/bespoke'
+    | '/contact'
+    | '/returns'
+    | '/sitemap.xml'
+    | '/tee'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/bespoke' | '/contact' | '/returns' | '/tee'
+  to:
+    | '/'
+    | '/about'
+    | '/bespoke'
+    | '/contact'
+    | '/returns'
+    | '/sitemap.xml'
+    | '/tee'
   id:
     | '__root__'
     | '/'
@@ -84,6 +107,7 @@ export interface FileRouteTypes {
     | '/bespoke'
     | '/contact'
     | '/returns'
+    | '/sitemap.xml'
     | '/tee'
   fileRoutesById: FileRoutesById
 }
@@ -93,6 +117,7 @@ export interface RootRouteChildren {
   BespokeRoute: typeof BespokeRoute
   ContactRoute: typeof ContactRoute
   ReturnsRoute: typeof ReturnsRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   TeeRoute: typeof TeeRoute
 }
 
@@ -103,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/tee'
       fullPath: '/tee'
       preLoaderRoute: typeof TeeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/returns': {
@@ -149,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   BespokeRoute: BespokeRoute,
   ContactRoute: ContactRoute,
   ReturnsRoute: ReturnsRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   TeeRoute: TeeRoute,
 }
 export const routeTree = rootRouteImport
