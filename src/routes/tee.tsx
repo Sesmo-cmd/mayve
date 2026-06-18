@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import tee1 from "@/assets/tee1.jpg";
-import tee2 from "@/assets/tee2.jpg";
+import { img } from "@/assets/images";
 import { FadeUp } from "@/components/FadeUp";
 
 export const Route = createFileRoute("/tee")({
@@ -10,14 +9,13 @@ export const Route = createFileRoute("/tee")({
       { name: "description", content: "Mayve Tee: unisex essentials crafted for comfort and bold simplicity. Each piece is made to order." },
       { property: "og:title", content: "Mayve Tee — Unisex Essentials" },
       { property: "og:description", content: "Unisex essentials crafted for comfort and bold simplicity." },
-      { property: "og:image", content: tee1 },
+      { property: "og:image", content: img.tee[0] },
     ],
   }),
   component: Tee,
 });
 
 function Tee() {
-  const images = [tee1, tee2, tee1, tee2, tee1, tee2];
   const numerals = ["I", "II", "III", "IV", "V", "VI"];
   return (
     <>
@@ -28,7 +26,7 @@ function Tee() {
       </div>
       <section className="section section-cream">
         <div className="grid-3">
-          {images.map((src, i) => (
+          {img.tee.map((src, i) => (
             <FadeUp key={i} className="pcard">
               <div className="pcard-img">
                 <span className="pcard-badge">Made to Order</span>

@@ -1,6 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import aboutImg from "@/assets/about.jpg";
-import heroImg from "@/assets/hero.jpg";
+import { img } from "@/assets/images";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -9,7 +8,7 @@ export const Route = createFileRoute("/about")({
       { name: "description", content: "Mayve is a contemporary made-to-order brand designed for the modern, multi-dimensional woman. Read our story." },
       { property: "og:title", content: "About Mayve — Our Story" },
       { property: "og:description", content: "A contemporary made-to-order brand for the modern, multi-dimensional woman." },
-      { property: "og:image", content: aboutImg },
+      { property: "og:image", content: img.aboutHero },
     ],
   }),
   component: About,
@@ -19,7 +18,7 @@ function About() {
   return (
     <>
       <div className="about-page-hero">
-        <div className="aph-img"><img src={aboutImg} alt="About Mayve" /></div>
+        <div className="aph-img"><img src={img.aboutHero} alt="About Mayve" /></div>
         <div className="aph-copy">
           <p className="eyebrow">About Mayve</p>
           <h1>The Story<br />Behind <em>Mayve</em></h1>
@@ -44,7 +43,7 @@ function About() {
           <p>From unisex essentials to elevated everyday wear and occasion pieces, Mayve delivers intentional design, quality craftsmanship, and bold simplicity that fits seamlessly into real life.</p>
           <div><Link to="/tee" className="btn btn-outline-w">Shop the Collection</Link></div>
         </div>
-        <div className="about-band-img"><img src={heroImg} alt="Collection" loading="lazy" /></div>
+        <div className="about-band-img"><img src={img.aboutCollection} alt="Collection" loading="lazy" /></div>
       </div>
     </>
   );

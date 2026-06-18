@@ -1,8 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import bespoke1 from "@/assets/bespoke1.jpg";
-import bespoke2 from "@/assets/bespoke2.jpg";
-import velora1 from "@/assets/velora1.jpg";
-import velora2 from "@/assets/velora2.jpg";
+import { img } from "@/assets/images";
 import { FadeUp } from "@/components/FadeUp";
 
 export const Route = createFileRoute("/bespoke")({
@@ -12,14 +9,13 @@ export const Route = createFileRoute("/bespoke")({
       { name: "description", content: "An exclusive look into Mayve's bespoke world — made-to-measure pieces that reflect individuality and craftsmanship." },
       { property: "og:title", content: "Bespoke Portfolio — Mayve" },
       { property: "og:description", content: "Made-to-measure pieces. Individuality, precision, craftsmanship." },
-      { property: "og:image", content: bespoke1 },
+      { property: "og:image", content: img.bespoke[0] },
     ],
   }),
   component: Bespoke,
 });
 
 function Bespoke() {
-  const mosaic = [bespoke1, bespoke2, velora1, bespoke2, bespoke1, velora2, bespoke2, velora1];
   return (
     <>
       <div className="bespoke-hero">
@@ -29,7 +25,7 @@ function Bespoke() {
         <Link to="/contact" className="btn btn-black">Ready to Create Something Uniquely Yours?</Link>
       </div>
       <div className="bespoke-mosaic">
-        {mosaic.map((src, i) => (
+        {img.bespoke.map((src, i) => (
           <FadeUp key={i} className="bm-img">
             <img src={src} alt={`Bespoke ${i + 1}`} loading="lazy" />
           </FadeUp>
@@ -38,7 +34,7 @@ function Bespoke() {
       <section className="section section-cream">
         <div className="sh"><h2>Velora Collection</h2></div>
         <div className="grid-4">
-          {[velora1, velora2, velora1, velora2].map((src, i) => (
+          {img.velora.map((src, i) => (
             <FadeUp key={i} className="pcard">
               <div className="pcard-img"><img src={src} alt={`Velora ${i + 1}`} loading="lazy" /></div>
               <div className="pcard-name">Velora {["I", "II", "III", "IV"][i]}</div>
