@@ -68,7 +68,7 @@ function OrdersPage() {
                   <td className="px-4 py-3"><a href={`tel:${o.phone}`} className="underline">{o.phone}</a></td>
                   <td className="px-4 py-3">{o.product_name}</td>
                   <td className="px-4 py-3">
-                    <select value={o.status} onChange={(e) => updateStatus.mutate({ id: o.id, status: e.target.value })} className="text-xs border border-neutral-300 rounded px-2 py-1">
+                    <select value={o.status} onChange={(e) => updateStatus.mutate({ id: o.id, status: e.target.value as typeof STATUSES[number] })} className="text-xs border border-neutral-300 rounded px-2 py-1">
                       {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
                     </select>
                   </td>
