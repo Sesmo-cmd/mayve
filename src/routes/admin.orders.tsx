@@ -20,7 +20,7 @@ function OrdersPage() {
     },
   });
   const updateStatus = useMutation({
-    mutationFn: async (v: { id: string; status: string }) => {
+    mutationFn: async (v: { id: string; status: typeof STATUSES[number] }) => {
       const { error } = await supabase.from("orders").update({ status: v.status }).eq("id", v.id);
       if (error) throw error;
     },
