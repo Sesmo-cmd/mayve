@@ -29,11 +29,11 @@ function Gate() {
   }, [loading, user, isLogin, navigate]);
 
   if (isLogin) {
-    return <div className="min-h-screen bg-off"><Outlet /></div>;
+    return <div className="min-h-screen bg-cream"><Outlet /></div>;
   }
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center bg-off text-sm text-muted">Loading…</div>;
+    return <div className="min-h-screen flex items-center justify-center bg-cream text-sm text-muted">Loading…</div>;
   }
 
   if (!user) return null;
