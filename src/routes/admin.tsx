@@ -29,12 +29,13 @@ function Gate() {
   }, [loading, user, isLogin, navigate]);
 
   if (isLogin) {
-    return <div className="min-h-screen bg-neutral-50"><Outlet /></div>;
+    return <div className="min-h-screen bg-off"><Outlet /></div>;
   }
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center bg-neutral-50 text-sm text-neutral-500">Loading…</div>;
+    return <div className="min-h-screen flex items-center justify-center bg-off text-sm text-muted">Loading…</div>;
   }
+
   if (!user) return null;
   if (!isAdmin) {
     return (
