@@ -31,47 +31,65 @@ function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 py-10">
-      <div className="w-full max-w-sm bg-white border border-neutral-200 rounded-lg p-8 shadow-sm">
-        <div className="text-center mb-6">
-          <div className="text-2xl font-serif tracking-wide">Mayve</div>
-          <div className="text-[11px] uppercase tracking-[0.2em] text-neutral-500 mt-1">Admin Portal</div>
+    <div className="min-h-screen bg-cream flex items-center justify-center px-4 py-12">
+      <div className="w-full max-w-[420px] bg-white border border-sand rounded-sm p-8 md:p-10 shadow-[0_24px_70px_-28px_rgba(13,13,13,0.14)]">
+        <div className="text-center mb-8">
+          <div className="font-serif text-3xl font-bold tracking-[0.12em] text-black uppercase">Mayve</div>
+          <div className="w-10 h-px bg-tan mx-auto mt-4 mb-3" />
+          <div className="text-[11px] uppercase tracking-[0.3em] text-muted">Admin Portal</div>
         </div>
-        <form onSubmit={onSubmit} className="space-y-3">
-          <div>
-            <label className="text-xs font-medium text-neutral-700">Email</label>
+
+        <form onSubmit={onSubmit} className="space-y-5">
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold tracking-[0.08em] uppercase text-text">Email</label>
             <input
               type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 w-full border border-neutral-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900"
+              className="w-full border border-sand bg-white rounded-sm px-4 py-3 text-sm text-text placeholder:text-muted/60 focus:outline-none focus:border-warm focus:ring-1 focus:ring-warm transition-colors"
+              placeholder="admin@mayve.com"
             />
           </div>
-          <div>
-            <label className="text-xs font-medium text-neutral-700">Password</label>
+          <div className="space-y-1.5">
+            <label className="text-xs font-semibold tracking-[0.08em] uppercase text-text">Password</label>
             <input
               type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full border border-neutral-300 rounded px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-neutral-900"
+              className="w-full border border-sand bg-white rounded-sm px-4 py-3 text-sm text-text placeholder:text-muted/60 focus:outline-none focus:border-warm focus:ring-1 focus:ring-warm transition-colors"
+              placeholder="••••••••"
             />
           </div>
-          {err && <div className="text-xs text-red-600">{err}</div>}
-          {info && <div className="text-xs text-green-700">{info}</div>}
+
+          {err && (
+            <div className="bg-red-50 border border-red-100 rounded-sm px-4 py-3 text-xs text-red-700 leading-relaxed">
+              {err}
+            </div>
+          )}
+          {info && (
+            <div className="bg-green-50 border border-green-100 rounded-sm px-4 py-3 text-xs text-green-700 leading-relaxed">
+              {info}
+            </div>
+          )}
+
           <button
             disabled={busy}
-            className="w-full bg-neutral-900 text-white py-2 rounded text-sm font-medium hover:bg-neutral-800 disabled:opacity-60"
+            className="w-full bg-black text-white py-3.5 rounded-sm text-xs font-semibold tracking-[0.14em] uppercase hover:bg-warm transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
           >
             {busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Create admin account"}
           </button>
         </form>
-        <div className="mt-4 text-center text-xs text-neutral-500">
-          {mode === "signin" ? (
-            <button onClick={() => setMode("signup")} className="underline">First time? Create the admin account</button>
-          ) : (
-            <button onClick={() => setMode("signin")} className="underline">Already have an account? Sign in</button>
-          )}
+
+        <div className="mt-6 text-center">
+          <button
+            onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+            className="text-xs text-muted hover:text-warm underline underline-offset-4 transition-colors"
+          >
+            {mode === "signin" ? "First time? Create the admin account" : "Already have an account? Sign in"}
+          </button>
         </div>
-        <p className="mt-4 text-[11px] text-neutral-400 text-center leading-relaxed">
+
+        <p className="mt-6 text-[11px] text-muted/80 text-center leading-relaxed max-w-xs mx-auto">
           Only one admin account can exist. After the first signup, registration is locked.
         </p>
       </div>
     </div>
   );
 }
+
