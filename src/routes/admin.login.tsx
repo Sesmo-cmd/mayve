@@ -31,11 +31,12 @@ function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-off flex items-center justify-center px-4 py-12">
-      <div className="w-full max-w-[420px] bg-white border border-sand rounded-sm p-8 md:p-10 shadow-[0_20px_60px_-24px_rgba(13,13,13,0.12)]">
+    <div className="min-h-screen bg-cream flex items-center justify-center px-4 py-12">
+      <div className="w-full max-w-[420px] bg-white border border-sand rounded-sm p-8 md:p-10 shadow-[0_24px_70px_-28px_rgba(13,13,13,0.14)]">
         <div className="text-center mb-8">
           <div className="font-serif text-3xl font-bold tracking-[0.12em] text-black uppercase">Mayve</div>
-          <div className="text-[11px] uppercase tracking-[0.3em] text-muted mt-2">Admin Portal</div>
+          <div className="w-10 h-px bg-tan mx-auto mt-4 mb-3" />
+          <div className="text-[11px] uppercase tracking-[0.3em] text-muted">Admin Portal</div>
         </div>
 
         <form onSubmit={onSubmit} className="space-y-5">
