@@ -39,18 +39,18 @@ function Gate() {
   if (!user) return null;
   if (!isAdmin) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-50 px-4">
-        <div className="max-w-sm text-center">
-          <h1 className="text-xl font-semibold">Access denied</h1>
-          <p className="text-sm text-neutral-600 mt-2">Your account does not have admin access.</p>
-          <Link to="/admin/login" className="inline-block mt-4 text-sm underline">Back to login</Link>
+      <div className="min-h-screen flex items-center justify-center bg-off px-4">
+        <div className="max-w-sm text-center bg-white border border-sand rounded-sm p-8 shadow-[0_20px_60px_-24px_rgba(13,13,13,0.12)]">
+          <h1 className="text-xl font-serif font-bold text-black">Access denied</h1>
+          <p className="text-sm text-muted mt-2">Your account does not have admin access.</p>
+          <Link to="/admin/login" className="inline-block mt-4 text-sm underline text-muted hover:text-warm">Back to login</Link>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="flex min-h-screen bg-neutral-50 text-neutral-900">
+    <div className="flex min-h-screen bg-off text-text">
       <AdminSidebar />
       <main className="flex-1 min-w-0 md:ml-0 p-4 md:p-8 pt-16 md:pt-8">
         <Outlet />
