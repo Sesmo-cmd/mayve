@@ -38,7 +38,7 @@ function Dashboard() {
         supabase.from("products").select("id,name,stock,available,price,created_at"),
         supabase
           .from("orders")
-          .select("id,customer_name,product_name,status,created_at,total")
+          .select("id,customer_name,product_name,status,created_at")
           .order("created_at", { ascending: false }),
       ]);
       const p = products.data ?? [];
