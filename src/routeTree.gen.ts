@@ -26,6 +26,7 @@ import { Route as AdminLoginRouteImport } from './routes/admin.login'
 import { Route as AdminInventoryRouteImport } from './routes/admin.inventory'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 import { Route as AdminCustomersRouteImport } from './routes/admin.customers'
+import { Route as AdminAnalyticsRouteImport } from './routes/admin.analytics'
 
 const TeeRoute = TeeRouteImport.update({
   id: '/tee',
@@ -112,6 +113,11 @@ const AdminCustomersRoute = AdminCustomersRouteImport.update({
   path: '/customers',
   getParentRoute: () => AdminRoute,
 } as any)
+const AdminAnalyticsRoute = AdminAnalyticsRouteImport.update({
+  id: '/analytics',
+  path: '/analytics',
+  getParentRoute: () => AdminRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -123,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tee': typeof TeeRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/inventory': typeof AdminInventoryRoute
@@ -141,6 +148,7 @@ export interface FileRoutesByTo {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tee': typeof TeeRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/inventory': typeof AdminInventoryRoute
@@ -161,6 +169,7 @@ export interface FileRoutesById {
   '/shop': typeof ShopRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/tee': typeof TeeRoute
+  '/admin/analytics': typeof AdminAnalyticsRoute
   '/admin/customers': typeof AdminCustomersRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/inventory': typeof AdminInventoryRoute
@@ -182,6 +191,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/tee'
+    | '/admin/analytics'
     | '/admin/customers'
     | '/admin/dashboard'
     | '/admin/inventory'
@@ -200,6 +210,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/tee'
+    | '/admin/analytics'
     | '/admin/customers'
     | '/admin/dashboard'
     | '/admin/inventory'
@@ -219,6 +230,7 @@ export interface FileRouteTypes {
     | '/shop'
     | '/sitemap.xml'
     | '/tee'
+    | '/admin/analytics'
     | '/admin/customers'
     | '/admin/dashboard'
     | '/admin/inventory'
@@ -362,10 +374,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminCustomersRouteImport
       parentRoute: typeof AdminRoute
     }
+    '/admin/analytics': {
+      id: '/admin/analytics'
+      path: '/analytics'
+      fullPath: '/admin/analytics'
+      preLoaderRoute: typeof AdminAnalyticsRouteImport
+      parentRoute: typeof AdminRoute
+    }
   }
 }
 
 interface AdminRouteChildren {
+  AdminAnalyticsRoute: typeof AdminAnalyticsRoute
   AdminCustomersRoute: typeof AdminCustomersRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminInventoryRoute: typeof AdminInventoryRoute
@@ -377,6 +397,7 @@ interface AdminRouteChildren {
 }
 
 const AdminRouteChildren: AdminRouteChildren = {
+  AdminAnalyticsRoute: AdminAnalyticsRoute,
   AdminCustomersRoute: AdminCustomersRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminInventoryRoute: AdminInventoryRoute,
