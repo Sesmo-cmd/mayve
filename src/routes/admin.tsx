@@ -5,7 +5,7 @@ import { AdminSidebar } from "@/components/AdminSidebar";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
-  head: () => ({ meta: [{ title: "Admin — Mayve" }, { name: "robots", content: "noindex" }] }),
+  head: () => ({ meta: [{ title: "Mayve Administration" }, { name: "robots", content: "noindex" }] }),
   component: AdminLayout,
 });
 
@@ -28,17 +28,19 @@ function Gate() {
     if (!user && !isLogin) navigate({ to: "/admin/login", replace: true });
   }, [loading, user, isLogin, navigate]);
 
-  if (isLogin) {
-    return <div className="min-h-screen bg-neutral-50"><Outlet /></div>;
-  }
+  if (isLogin) return <Outlet />;
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center bg-neutral-50 text-sm text-neutral-500">Loading…</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#f6f6f4] text-sm text-neutral-500">
+        Loading workspace…
+      </div>
+    );
   }
   if (!user) return null;
   if (!isAdmin) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-neutral-50 px-4">
+      <div className="min-h-screen flex items-center justify-center bg-[#f6f6f4] px-4">
         <div className="max-w-sm text-center">
           <h1 className="text-xl font-semibold">Access denied</h1>
           <p className="text-sm text-neutral-600 mt-2">Your account does not have admin access.</p>
@@ -49,10 +51,12 @@ function Gate() {
   }
 
   return (
-    <div className="flex min-h-screen bg-neutral-50 text-neutral-900">
+    <div className="flex min-h-screen bg-[#f6f6f4] text-neutral-900 antialiased">
       <AdminSidebar />
-      <main className="flex-1 min-w-0 md:ml-0 p-4 md:p-8 pt-16 md:pt-8">
-        <Outlet />
+      <main className="flex-1 min-w-0 pt-14 md:pt-0">
+        <div className="mx-auto w-full max-w-[1400px] px-4 py-6 md:px-10 md:py-10">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
