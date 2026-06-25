@@ -7,13 +7,11 @@ import {
   ShoppingBag,
   Plus,
   Boxes,
-  TrendingUp,
   ArrowUpRight,
   Settings as SettingsIcon,
   CheckCircle2,
-  Clock,
   DollarSign,
-  Bell,
+  ClipboardList,
 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/dashboard")({ component: Dashboard });
@@ -28,8 +26,7 @@ const statusStyles: Record<string, string> = {
 };
 
 function formatDate(iso: string) {
-  const d = new Date(iso);
-  return d.toLocaleDateString(undefined, { month: "short", day: "numeric" });
+  return new Date(iso).toLocaleDateString(undefined, { month: "short", day: "numeric" });
 }
 
 function Dashboard() {
@@ -38,10 +35,7 @@ function Dashboard() {
     queryFn: async () => {
       const [products, orders] = await Promise.all([
         supabase.from("products").select("id,name,stock,available,price,created_at"),
-        supabase
-          .from("orders")
-          .select("id,customer_name,product_name,status,created_at,product_id")
-          .order("created_at", { ascending: false }),
+        supabase.from("orders").select("id,customer_name,product_name,status,created_at,product_id").order("created_at", { ascending: false }),
       ]);
       const p = products.data ?? [];
       const o = orders.data ?? [];
@@ -49,7 +43,6 @@ function Dashboard() {
       const now = Date.now();
       const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
 
-      // Revenue trend last 7 days (sum delivered)
       const days: { label: string; value: number }[] = [];
       for (let i = 6; i >= 0; i--) {
         const d = new Date(now - i * 24 * 60 * 60 * 1000);
@@ -64,7 +57,10 @@ function Dashboard() {
           .reduce((s: number, x: any) => s + (productPrice.get(x.product_id) ?? 0), 0);
         days.push({ label: key, value });
       }
-      const revenue = days.reduce((s, d) => s + d.value, 0);
+
+      const revenueAll = o
+        .filter((x: any) => x.status !== "cancelled")
+        .reduce((s: number, x: any) => s + (productPrice.get(x.product_id) ?? 0), 0);
 
       return {
         total: p.length,
@@ -75,95 +71,43 @@ function Dashboard() {
         ordersWeekCount: o.filter((x: any) => new Date(x.created_at).getTime() > weekAgo).length,
         pending: o.filter((x: any) => x.status === "pending").length,
         delivered: o.filter((x: any) => x.status === "delivered").length,
-        revenue,
+        revenueAll,
         days,
-        lowStockItems: p
-          .filter((x: any) => x.available && x.stock < 3)
-          .sort((a: any, b: any) => a.stock - b.stock)
-          .slice(0, 5),
+        lowStockItems: p.filter((x: any) => x.available && x.stock < 3).sort((a: any, b: any) => a.stock - b.stock).slice(0, 5),
       };
     },
   });
 
   const stats = [
-    {
-      label: "Total products",
-      value: data?.total ?? 0,
-      hint: `${data?.inStockUnits ?? 0} units in stock`,
-      icon: Package,
-      delta: null,
-    },
-    {
-      label: "Orders this week",
-      value: data?.ordersWeekCount ?? 0,
-      hint: `${data?.ordersAll.length ?? 0} all time`,
-      icon: TrendingUp,
-      delta: "+12%",
-    },
-    {
-      label: "Revenue (7d)",
-      value: `₦${(data?.revenue ?? 0).toLocaleString()}`,
-      hint: `${data?.delivered ?? 0} delivered orders`,
-      icon: DollarSign,
-      delta: null,
-    },
-    {
-      label: "Low stock",
-      value: (data?.low ?? 0) + (data?.out ?? 0),
-      hint: `${data?.out ?? 0} out of stock`,
-      icon: AlertTriangle,
-      delta: null,
-      warn: true,
-    },
-  ];
+    { label: "Total Products", value: data?.total ?? 0, hint: `${data?.inStockUnits ?? 0} units in stock`, icon: Package, tone: "neutral" },
+    { label: "Total Orders", value: data?.ordersAll.length ?? 0, hint: `${data?.ordersWeekCount ?? 0} this week`, icon: ClipboardList, tone: "neutral" },
+    { label: "Total Revenue", value: `₦${(data?.revenueAll ?? 0).toLocaleString()}`, hint: `${data?.delivered ?? 0} delivered`, icon: DollarSign, tone: "indigo" },
+    { label: "Low Stock Alerts", value: (data?.low ?? 0) + (data?.out ?? 0), hint: `${data?.out ?? 0} out of stock`, icon: AlertTriangle, tone: "warn" },
+  ] as const;
 
   const recent = data?.ordersAll.slice(0, 6) ?? [];
   const maxDay = Math.max(1, ...(data?.days.map((d) => d.value) ?? [1]));
 
   return (
     <div>
-      {/* Header */}
-      <header className="mb-8 grid grid-cols-[minmax(0,1fr)_auto] items-end gap-4">
-        <div className="min-w-0">
-          <p className="text-[11px] uppercase tracking-[0.22em] text-neutral-500">Overview</p>
-          <h1 className="mt-1.5 font-serif text-3xl md:text-[34px] leading-tight text-neutral-900">
-            Welcome back
-          </h1>
-          <p className="mt-1.5 text-sm text-neutral-600">
-            Here's what's happening with your storefront today.
-          </p>
-        </div>
-        <div className="hidden sm:flex shrink-0 gap-2">
-          <button className="inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-xs font-medium text-neutral-700 hover:bg-neutral-50">
-            <Bell size={14} /> Alerts
-          </button>
-          <Link
-            to="/admin/products"
-            className="inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-3.5 py-2 text-xs font-medium text-white hover:bg-black"
-          >
-            <Plus size={14} /> New product
-          </Link>
-        </div>
-      </header>
+      <div className="mb-6">
+        <p className="text-sm text-neutral-500">Here's what's happening with your storefront today.</p>
+      </div>
 
       {/* Stats */}
       <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
         {stats.map((s) => {
           const Icon = s.icon;
+          const toneCls =
+            s.tone === "warn" ? "bg-rose-50 text-rose-600"
+            : s.tone === "indigo" ? "bg-indigo-50 text-indigo-600"
+            : "bg-neutral-100 text-neutral-700";
           return (
-            <div
-              key={s.label}
-              className="group rounded-xl border border-neutral-200 bg-white p-5 transition hover:shadow-sm"
-            >
+            <div key={s.label} className="rounded-2xl border border-neutral-200 bg-white p-5">
               <div className="flex items-center justify-between">
-                <div className={`grid h-9 w-9 place-items-center rounded-lg ${s.warn ? "bg-red-50 text-red-600" : "bg-neutral-100 text-neutral-700"}`}>
+                <div className={`grid h-9 w-9 place-items-center rounded-lg ${toneCls}`}>
                   <Icon size={16} />
                 </div>
-                {s.delta && (
-                  <span className="text-[11px] font-medium text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
-                    {s.delta}
-                  </span>
-                )}
               </div>
               <div className="mt-4 text-[26px] font-semibold tracking-tight text-neutral-900 leading-none">
                 {isLoading ? "—" : s.value}
@@ -175,17 +119,17 @@ function Dashboard() {
         })}
       </div>
 
-      {/* Revenue chart + Quick actions */}
+      {/* Sales Overview + Quick actions */}
       <div className="grid gap-4 lg:grid-cols-3 mb-6">
-        <section className="lg:col-span-2 rounded-xl border border-neutral-200 bg-white p-6">
+        <section className="lg:col-span-2 rounded-2xl border border-neutral-200 bg-white p-6">
           <header className="flex items-end justify-between mb-6">
             <div>
-              <h2 className="text-sm font-semibold text-neutral-900">Revenue trend</h2>
-              <p className="text-xs text-neutral-500 mt-0.5">Last 7 days</p>
+              <h2 className="text-sm font-semibold text-neutral-900">Sales Overview</h2>
+              <p className="text-xs text-neutral-500 mt-0.5">Revenue across the last 7 days</p>
             </div>
             <div className="text-right">
-              <div className="text-2xl font-semibold tracking-tight">₦{(data?.revenue ?? 0).toLocaleString()}</div>
-              <div className="text-[11px] text-neutral-500 uppercase tracking-wider">Total</div>
+              <div className="text-xl font-semibold tracking-tight">₦{(data?.days.reduce((s,d)=>s+d.value,0) ?? 0).toLocaleString()}</div>
+              <div className="text-[11px] text-neutral-500 uppercase tracking-wider">7d total</div>
             </div>
           </header>
           <div className="flex items-end gap-3 h-40">
@@ -193,7 +137,7 @@ function Dashboard() {
               <div key={i} className="flex-1 flex flex-col items-center gap-2 min-w-0">
                 <div className="w-full flex-1 flex items-end">
                   <div
-                    className="w-full rounded-t-md bg-gradient-to-t from-neutral-900 to-neutral-700 transition-all hover:from-black"
+                    className="w-full rounded-t-md bg-gradient-to-t from-indigo-600 to-indigo-400"
                     style={{ height: `${Math.max(4, (d.value / maxDay) * 100)}%` }}
                     title={`₦${d.value.toLocaleString()}`}
                   />
@@ -204,8 +148,8 @@ function Dashboard() {
           </div>
         </section>
 
-        <aside className="rounded-xl border border-neutral-200 bg-white p-6">
-          <h2 className="text-sm font-semibold text-neutral-900">Quick actions</h2>
+        <aside className="rounded-2xl border border-neutral-200 bg-white p-6">
+          <h2 className="text-sm font-semibold text-neutral-900">Quick Actions</h2>
           <p className="text-xs text-neutral-500 mt-0.5">Jump into the work</p>
           <div className="mt-4 space-y-2">
             <QuickAction to="/admin/products" icon={Plus} label="Add product" primary />
@@ -216,15 +160,15 @@ function Dashboard() {
         </aside>
       </div>
 
-      {/* Recent orders + Low stock */}
+      {/* Recent orders + Inventory status */}
       <div className="grid gap-4 lg:grid-cols-3">
-        <section className="lg:col-span-2 rounded-xl border border-neutral-200 bg-white overflow-hidden">
+        <section className="lg:col-span-2 rounded-2xl border border-neutral-200 bg-white overflow-hidden">
           <header className="flex items-center justify-between border-b border-neutral-100 px-6 py-4">
             <div>
-              <h2 className="text-sm font-semibold text-neutral-900">Recent orders</h2>
+              <h2 className="text-sm font-semibold text-neutral-900">Recent Orders</h2>
               <p className="text-xs text-neutral-500 mt-0.5">Latest WhatsApp orders you've logged</p>
             </div>
-            <Link to="/admin/orders" className="text-xs font-medium text-neutral-700 hover:text-neutral-900 inline-flex items-center gap-1">
+            <Link to="/admin/orders" className="text-xs font-medium text-indigo-600 hover:text-indigo-800 inline-flex items-center gap-1">
               View all <ArrowUpRight size={12} />
             </Link>
           </header>
@@ -235,15 +179,12 @@ function Dashboard() {
               </div>
               <p className="mt-3 text-sm text-neutral-700">No orders yet</p>
               <p className="mt-1 text-xs text-neutral-500">Log your first WhatsApp sale from the Orders page.</p>
-              <Link to="/admin/orders" className="mt-4 inline-flex items-center gap-2 rounded-lg bg-neutral-900 px-4 py-2 text-xs font-medium text-white hover:bg-black">
-                <Plus size={14} /> Log an order
-              </Link>
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full text-[13px]">
                 <thead>
-                  <tr className="text-left text-[10px] uppercase tracking-[0.14em] text-neutral-500 bg-neutral-50/60">
+                  <tr className="text-left text-[11px] uppercase tracking-wider text-neutral-500">
                     <th className="px-6 py-3 font-medium">Customer</th>
                     <th className="px-6 py-3 font-medium">Product</th>
                     <th className="px-6 py-3 font-medium">Status</th>
@@ -269,13 +210,13 @@ function Dashboard() {
           )}
         </section>
 
-        <aside className="rounded-xl border border-neutral-200 bg-white p-6">
+        <aside className="rounded-2xl border border-neutral-200 bg-white p-6">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-sm font-semibold text-neutral-900">Inventory alerts</h2>
+              <h2 className="text-sm font-semibold text-neutral-900">Inventory Status</h2>
               <p className="text-xs text-neutral-500 mt-0.5">Items needing restock</p>
             </div>
-            <Link to="/admin/inventory" className="text-xs font-medium text-neutral-700 hover:text-neutral-900">
+            <Link to="/admin/inventory" className="text-xs font-medium text-indigo-600 hover:text-indigo-800">
               Manage →
             </Link>
           </div>
@@ -285,13 +226,9 @@ function Dashboard() {
                 <li key={p.id} className="flex items-center justify-between gap-3 pb-3 border-b border-neutral-100 last:border-0 last:pb-0">
                   <div className="min-w-0">
                     <div className="text-sm font-medium text-neutral-800 truncate">{p.name}</div>
-                    <div className="text-[11px] text-neutral-500 mt-0.5">
-                      Recommend: restock {Math.max(10 - p.stock, 5)} units
-                    </div>
+                    <div className="text-[11px] text-neutral-500 mt-0.5">Recommend: restock {Math.max(10 - p.stock, 5)} units</div>
                   </div>
-                  <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${
-                    p.stock === 0 ? "bg-red-50 text-red-700" : "bg-amber-50 text-amber-700"
-                  }`}>
+                  <span className={`shrink-0 rounded-full px-2 py-0.5 text-[11px] font-semibold ${p.stock === 0 ? "bg-rose-50 text-rose-700" : "bg-amber-50 text-amber-700"}`}>
                     {p.stock} left
                   </span>
                 </li>
@@ -313,9 +250,7 @@ function QuickAction({ to, icon: Icon, label, primary }: { to: string; icon: any
     <Link
       to={to}
       className={`group flex items-center justify-between rounded-lg px-3.5 py-2.5 text-sm transition ${
-        primary
-          ? "bg-neutral-900 text-white hover:bg-black"
-          : "border border-neutral-200 bg-white text-neutral-800 hover:bg-neutral-50"
+        primary ? "bg-indigo-600 text-white hover:bg-indigo-700" : "border border-neutral-200 bg-white text-neutral-800 hover:bg-neutral-50"
       }`}
     >
       <span className="flex items-center gap-2.5">
