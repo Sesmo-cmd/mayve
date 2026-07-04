@@ -2,24 +2,12 @@ import { createFileRoute, Outlet, useNavigate, useRouterState, Link } from "@tan
 import { useEffect } from "react";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { AdminSidebar } from "@/components/AdminSidebar";
-import { Search, Bell, ChevronDown } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
   head: () => ({ meta: [{ title: "Mayve Administration" }, { name: "robots", content: "noindex" }] }),
   component: AdminLayout,
 });
-
-const titleMap: Record<string, string> = {
-  "/admin/dashboard": "Dashboard",
-  "/admin/products": "Products",
-  "/admin/categories": "Categories",
-  "/admin/orders": "Orders",
-  "/admin/inventory": "Inventory",
-  "/admin/customers": "Customers",
-  "/admin/analytics": "Analytics",
-  "/admin/settings": "Settings",
-};
 
 function AdminLayout() {
   return (
@@ -62,7 +50,6 @@ function Gate() {
     );
   }
 
-  const title = titleMap[pathname] ?? "Mayve";
   const initials = (user.email ?? "A").slice(0, 2).toUpperCase();
 
   return (
