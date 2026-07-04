@@ -2,24 +2,12 @@ import { createFileRoute, Outlet, useNavigate, useRouterState, Link } from "@tan
 import { useEffect } from "react";
 import { AuthProvider, useAuth } from "@/lib/auth-context";
 import { AdminSidebar } from "@/components/AdminSidebar";
-import { Search, Bell, ChevronDown } from "lucide-react";
 
 export const Route = createFileRoute("/admin")({
   ssr: false,
   head: () => ({ meta: [{ title: "Mayve Administration" }, { name: "robots", content: "noindex" }] }),
   component: AdminLayout,
 });
-
-const titleMap: Record<string, string> = {
-  "/admin/dashboard": "Dashboard",
-  "/admin/products": "Products",
-  "/admin/categories": "Categories",
-  "/admin/orders": "Orders",
-  "/admin/inventory": "Inventory",
-  "/admin/customers": "Customers",
-  "/admin/analytics": "Analytics",
-  "/admin/settings": "Settings",
-};
 
 function AdminLayout() {
   return (
@@ -62,34 +50,19 @@ function Gate() {
     );
   }
 
-  const title = titleMap[pathname] ?? "Mayve";
   const initials = (user.email ?? "A").slice(0, 2).toUpperCase();
 
   return (
-    <div className="flex min-h-screen bg-[#f4f4f6] text-neutral-900 antialiased">
+    <div className="flex min-h-screen bg-[#f5f1ea] text-neutral-900 antialiased">
       <AdminSidebar />
       <main className="flex-1 min-w-0 pt-14 md:pt-0 flex flex-col">
-        {/* Top bar */}
-        <header className="sticky top-0 z-20 hidden md:flex items-center justify-between bg-white border-b border-neutral-200 px-8 h-[68px]">
-          <h1 className="text-[22px] font-semibold tracking-tight text-neutral-900">{title}</h1>
-          <div className="flex items-center gap-2">
-            <button className="p-2 rounded-lg hover:bg-neutral-100 text-neutral-600" aria-label="Search">
-              <Search size={18} />
-            </button>
-            <button className="p-2 rounded-lg hover:bg-neutral-100 text-neutral-600 relative" aria-label="Notifications">
-              <Bell size={18} />
-              <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-indigo-600 rounded-full" />
-            </button>
-            <div className="flex items-center gap-2 ml-2 pl-3 border-l border-neutral-200">
-              <div className="h-8 w-8 rounded-full bg-gradient-to-br from-neutral-300 to-neutral-500 grid place-items-center text-[11px] font-semibold text-white">
-                {initials}
-              </div>
-              <ChevronDown size={14} className="text-neutral-400" />
-            </div>
+        <header className="hidden md:flex items-center justify-end px-8 pt-6">
+          <div className="h-9 w-9 rounded-full bg-neutral-900 grid place-items-center text-[11px] font-semibold text-white">
+            {initials}
           </div>
         </header>
 
-        <div className="flex-1 px-4 py-6 md:px-8 md:py-8">
+        <div className="flex-1 px-4 py-6 md:px-8 md:pb-10 md:pt-6">
           <div className="mx-auto w-full max-w-[1400px]">
             <Outlet />
           </div>
@@ -98,3 +71,4 @@ function Gate() {
     </div>
   );
 }
+
