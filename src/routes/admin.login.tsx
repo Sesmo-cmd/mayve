@@ -1,7 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/lib/auth-context";
-import { Lock, Mail, ShieldCheck, ArrowRight, Infinity as InfinityIcon } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/admin/login")({
   component: LoginPage,
@@ -23,110 +23,137 @@ function LoginPage() {
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setErr(null); setInfo(null); setBusy(true);
+    setErr(null);
+    setInfo(null);
+    setBusy(true);
     const fn = mode === "signin" ? signIn : signUp;
     const { error } = await fn(email, password);
     setBusy(false);
-    if (error) { setErr(error); return; }
+    if (error) {
+      setErr(error);
+      return;
+    }
     if (mode === "signup") setInfo("Account created. You may now sign in.");
   }
 
   return (
-    <div className="min-h-screen flex bg-[#f4f4f6]">
-      {/* Left brand panel */}
-      <div className="hidden lg:flex flex-1 relative bg-neutral-950 text-white overflow-hidden">
-        <div className="absolute inset-0 opacity-30"
-             style={{ backgroundImage: "radial-gradient(circle at 30% 30%, rgba(99,102,241,0.5), transparent 50%), radial-gradient(circle at 70% 80%, rgba(255,255,255,0.08), transparent 50%)" }} />
-        <div className="relative z-10 flex flex-col justify-between p-12 w-full">
-          <div className="flex items-center gap-2.5">
-            <InfinityIcon size={26} className="text-indigo-400" strokeWidth={2.5} />
-            <span className="font-semibold tracking-tight text-lg">Mayve</span>
-          </div>
-          <div className="max-w-md">
-            <p className="text-[11px] uppercase tracking-[0.32em] text-white/50 mb-4">Administration</p>
-            <h2 className="font-serif text-4xl leading-tight">A back-office built for considered fashion.</h2>
-            <p className="mt-4 text-sm text-white/60 leading-relaxed">
-              Manage products, inventory, customers, and analytics from a single
-              private workspace — connected directly to your storefront.
-            </p>
-          </div>
-          <div className="text-[11px] text-white/40 uppercase tracking-[0.22em]">© Mayve — Secure Portal</div>
+    <div className="min-h-screen flex bg-[#f5f1ea] text-neutral-900">
+      {/* Left: dark brand column */}
+      <aside className="hidden lg:flex w-[46%] xl:w-[42%] relative bg-[#0a0a0a] text-white flex-col justify-between p-14 overflow-hidden">
+        <div className="absolute inset-0 pointer-events-none opacity-[0.08]"
+             style={{ backgroundImage: "radial-gradient(1px 1px at 30% 20%, #fff, transparent), radial-gradient(1px 1px at 70% 65%, #fff, transparent), radial-gradient(1px 1px at 40% 85%, #fff, transparent)" }} />
+        <div className="absolute -bottom-40 -left-40 w-[520px] h-[520px] rounded-full bg-[#c9a67a] opacity-[0.06] blur-3xl" />
+
+        <div className="relative z-10 flex items-center gap-3">
+          <span className="text-[11px] tracking-[0.42em] font-medium text-white/70">MAYVE</span>
+          <span className="h-px w-8 bg-white/20" />
+          <span className="text-[10px] tracking-[0.32em] text-white/40">STUDIO ADMIN</span>
         </div>
-      </div>
 
-      {/* Right form */}
-      <div className="flex-1 flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-sm">
-          <div className="lg:hidden flex items-center gap-2 mb-8">
-            <InfinityIcon size={22} className="text-indigo-600" strokeWidth={2.5} />
-            <span className="font-semibold tracking-tight">Mayve</span>
+        <div className="relative z-10 max-w-md">
+          <p className="text-[10px] uppercase tracking-[0.36em] text-[#c9a67a] mb-6">Private Portal</p>
+          <h2 className="font-serif text-[42px] leading-[1.08] tracking-tight text-white">
+            The atelier's<br />quiet workroom.
+          </h2>
+          <p className="mt-6 text-[13.5px] leading-relaxed text-white/55 max-w-sm">
+            A considered back-office for products, inventory and orders — reserved for the studio team.
+          </p>
+        </div>
+
+        <div className="relative z-10 flex items-center justify-between text-[10px] uppercase tracking-[0.28em] text-white/35">
+          <span>© Mayve</span>
+          <span>Secure Access</span>
+        </div>
+      </aside>
+
+      {/* Right: form */}
+      <section className="flex-1 flex items-center justify-center px-6 py-16">
+        <div className="w-full max-w-[380px]">
+          <div className="lg:hidden flex items-center gap-3 mb-10">
+            <span className="text-[11px] tracking-[0.42em] font-medium text-neutral-700">MAYVE</span>
+            <span className="h-px w-6 bg-neutral-300" />
+            <span className="text-[10px] tracking-[0.32em] text-neutral-400">STUDIO ADMIN</span>
           </div>
 
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-indigo-50 text-indigo-700 text-[10px] uppercase tracking-[0.18em] font-medium">
-            <ShieldCheck size={11} /> Secure Portal
-          </div>
-          <h1 className="mt-5 text-[26px] font-semibold tracking-tight text-neutral-900">
-            {mode === "signin" ? "Sign in to Mayve" : "Create admin account"}
+          <p className="text-[10px] uppercase tracking-[0.36em] text-neutral-400 mb-4">
+            {mode === "signin" ? "Sign in" : "Provision account"}
+          </p>
+          <h1 className="font-serif text-[34px] leading-[1.1] tracking-tight text-neutral-900">
+            {mode === "signin" ? "Welcome back." : "Create the owner account."}
           </h1>
-          <p className="mt-1.5 text-sm text-neutral-500">
+          <p className="mt-3 text-[13.5px] text-neutral-500 leading-relaxed">
             {mode === "signin"
-              ? "Enter your credentials to access the dashboard."
-              : "Provision the platform owner account."}
+              ? "Enter your credentials to open the studio workspace."
+              : "The first account becomes the platform administrator."}
           </p>
 
-          <form onSubmit={onSubmit} className="mt-8 space-y-4">
+          <form onSubmit={onSubmit} className="mt-10 space-y-5">
             <div>
-              <label className="block text-[12px] font-medium text-neutral-700 mb-1.5">Email</label>
-              <div className="relative">
-                <Mail size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
-                <input
-                  type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
-                  placeholder="owner@mayve.com"
-                  className="w-full rounded-lg border border-neutral-300 bg-white pl-9 pr-3 py-2.5 text-sm placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                />
-              </div>
+              <label className="block text-[10px] uppercase tracking-[0.24em] text-neutral-500 mb-2">Email</label>
+              <input
+                type="email"
+                required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="owner@mayve.com"
+                className="w-full bg-transparent border-0 border-b border-neutral-300 px-0 py-2.5 text-[15px] placeholder:text-neutral-300 focus:outline-none focus:border-neutral-900 transition"
+              />
             </div>
             <div>
-              <label className="block text-[12px] font-medium text-neutral-700 mb-1.5">Password</label>
-              <div className="relative">
-                <Lock size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
-                <input
-                  type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)}
-                  placeholder="••••••••"
-                  className="w-full rounded-lg border border-neutral-300 bg-white pl-9 pr-3 py-2.5 text-sm placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
-                />
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-[10px] uppercase tracking-[0.24em] text-neutral-500">Password</label>
+                {mode === "signin" && (
+                  <span className="text-[10px] uppercase tracking-[0.22em] text-neutral-400">Min 6 chars</span>
+                )}
               </div>
+              <input
+                type="password"
+                required
+                minLength={6}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="••••••••"
+                className="w-full bg-transparent border-0 border-b border-neutral-300 px-0 py-2.5 text-[15px] placeholder:text-neutral-300 focus:outline-none focus:border-neutral-900 transition"
+              />
             </div>
 
-            {err && <div className="text-xs text-red-600 bg-red-50 border border-red-100 rounded-md px-3 py-2">{err}</div>}
-            {info && <div className="text-xs text-emerald-700 bg-emerald-50 border border-emerald-100 rounded-md px-3 py-2">{info}</div>}
+            {err && (
+              <div className="text-[12px] text-red-700 bg-red-50/70 border-l-2 border-red-500 px-3 py-2">
+                {err}
+              </div>
+            )}
+            {info && (
+              <div className="text-[12px] text-emerald-800 bg-emerald-50/70 border-l-2 border-emerald-600 px-3 py-2">
+                {info}
+              </div>
+            )}
 
             <button
               disabled={busy}
-              className="group w-full inline-flex items-center justify-center gap-2 bg-indigo-600 text-white py-2.5 rounded-lg text-sm font-medium hover:bg-indigo-700 disabled:opacity-60 transition shadow-sm"
+              className="group mt-4 w-full inline-flex items-center justify-center gap-2 bg-[#0a0a0a] text-white py-3.5 text-[12px] uppercase tracking-[0.28em] font-medium hover:bg-neutral-800 disabled:opacity-60 transition"
             >
-              {busy ? "Please wait…" : mode === "signin" ? "Sign in" : "Create account"}
-              {!busy && <ArrowRight size={14} className="transition group-hover:translate-x-0.5" />}
+              {busy ? "Please wait" : mode === "signin" ? "Enter workspace" : "Create account"}
+              {!busy && <ArrowRight size={13} className="transition group-hover:translate-x-1" />}
             </button>
           </form>
 
-          <div className="mt-6 text-center text-xs text-neutral-500">
-            {mode === "signin" ? (
-              <button onClick={() => setMode("signup")} className="hover:text-indigo-700 underline underline-offset-2">
-                First time? Create the admin account
-              </button>
-            ) : (
-              <button onClick={() => setMode("signin")} className="hover:text-indigo-700 underline underline-offset-2">
-                Already have an account? Sign in
-              </button>
-            )}
+          <div className="mt-10 pt-6 border-t border-neutral-200 flex items-center justify-between text-[11px] text-neutral-500">
+            <span className="uppercase tracking-[0.22em] text-neutral-400">
+              {mode === "signin" ? "First time" : "Have access"}
+            </span>
+            <button
+              onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
+              className="text-neutral-900 hover:text-[#8a6d3f] transition tracking-wide"
+            >
+              {mode === "signin" ? "Provision account →" : "Sign in instead →"}
+            </button>
           </div>
 
-          <p className="mt-10 text-center text-[11px] text-neutral-400 leading-relaxed">
-            Only one admin account can exist. After the first signup, registration is locked.
+          <p className="mt-8 text-[10.5px] text-neutral-400 leading-relaxed tracking-wide">
+            A single administrator account governs this workspace. Registration closes after the first signup.
           </p>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
