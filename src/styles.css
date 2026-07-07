@@ -371,3 +371,6 @@ img { display: block; max-width: 100%; }
   .footer { flex-direction: column; gap: 12px; text-align: center; }
   .hero-content { padding: 0 24px 36px; }
 }
+
+.nav-logo-img { height: 36px; width: auto; display: block; }
+.f-logo-img { height: 44px; width: auto; display: block; }
