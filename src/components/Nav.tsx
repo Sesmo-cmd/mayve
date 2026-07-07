@@ -1,6 +1,9 @@
 import { Link } from "@tanstack/react-router";
+import { useAuth } from "@/lib/auth-context";
 
 export function Nav() {
+  const { isAdmin, user } = useAuth();
+
   return (
     <nav className="nav">
       <Link to="/" className="nav-logo">Mayve</Link>
@@ -12,6 +15,11 @@ export function Nav() {
         <li><Link to="/about" activeProps={{ className: "active" }}>About Us</Link></li>
       </ul>
       <div className="nav-right">
+        {isAdmin && (
+          <Link to="/admin/dashboard" activeProps={{ className: "active" }}>
+            Dashboard
+          </Link>
+        )}
         <Link to="/returns">Returns</Link>
         <Link to="/contact">Contact</Link>
       </div>
