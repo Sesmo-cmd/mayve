@@ -76,16 +76,11 @@ function LoginPage() {
           </div>
 
           <p className="text-[10px] uppercase tracking-[0.36em] text-neutral-400 mb-4">
-            {mode === "signin" ? "Sign in" : "Provision account"}
+            {mode === "signin" ? "Sign in" : "Sign up"}
           </p>
           <h1 className="font-serif text-[34px] leading-[1.1] tracking-tight text-neutral-900">
-            {mode === "signin" ? "Welcome back." : "Create the owner account."}
+            {mode === "signin" ? "Welcome back." : "Sign up to your workspace."}
           </h1>
-          <p className="mt-3 text-[13.5px] text-neutral-500 leading-relaxed">
-            {mode === "signin"
-              ? "Enter your credentials to open the studio workspace."
-              : "The first account becomes the platform administrator."}
-          </p>
 
           <form onSubmit={onSubmit} className="mt-10 space-y-5">
             <div>
