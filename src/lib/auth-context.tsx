@@ -77,8 +77,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   return <AuthCtx.Provider value={value}>{children}</AuthCtx.Provider>;
 }
 
+const NOOP_AUTH: AuthState = {
+  session: null,
+  user: null,
+  isAdmin: false,
+  loading: false,
+  signIn: async () => ({ error: "Auth unavailable" }),
+  signUp: async () => ({ error: "Auth unavailable" }),
+  signOut: async () => {},
+};
+
 export function useAuth() {
-  const ctx = useContext(AuthCtx);
-  if (!ctx) throw new Error("useAuth outside AuthProvider");
-  return ctx;
+  return useContext(AuthCtx) ?? NOOP_AUTH;
 }
