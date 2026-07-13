@@ -349,8 +349,12 @@ img { display: block; max-width: 100%; }
 .f-links a:hover { color: var(--tan); }
 
 /* FADE UP */
-.fu { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+.fu { opacity: 1; transform: none; transition: opacity .65s ease, transform .65s ease; }
+.fu.pre { opacity: 0; transform: translateY(28px); }
 .fu.in { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .fu:not(.in):not(.pre) { }
+}
 
 /* RESPONSIVE */
 @media (max-width: 900px) {
