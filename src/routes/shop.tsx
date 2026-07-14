@@ -44,7 +44,7 @@ function ShopPage() {
                 <div className="na-card-info">
                   <div className="reviews">{p.category || "Mayve"}</div>
                   <h4>{p.name}</h4>
-                  <div style={{ marginTop: 6, fontSize: 14 }}>₦{Number(p.price).toLocaleString()}</div>
+                  
                   {lowStock && <div style={{ marginTop: 4, fontSize: 11, color: "#b45309" }}>Only {p.stock} left</div>}
                   {p.description && <p style={{ marginTop: 8, fontSize: 13, color: "var(--ink-muted)" }}>{p.description}</p>}
                   <a
