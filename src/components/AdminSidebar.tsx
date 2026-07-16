@@ -6,6 +6,7 @@ import { useAuth } from "@/lib/auth-context";
 const items = [
   { to: "/admin/dashboard", label: "Dashboard" },
   { to: "/admin/products", label: "Products" },
+  { to: "/admin/content", label: "Content" },
   { to: "/admin/categories", label: "Categories" },
   { to: "/admin/orders", label: "Orders" },
   { to: "/admin/inventory", label: "Inventory" },
@@ -13,6 +14,7 @@ const items = [
   { to: "/admin/analytics", label: "Analytics" },
   { to: "/admin/settings", label: "Settings" },
 ] as const;
+
 
 export function AdminSidebar() {
   const { signOut } = useAuth();
