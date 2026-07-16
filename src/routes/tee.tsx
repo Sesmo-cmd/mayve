@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { img } from "@/assets/images";
 import { FadeUp } from "@/components/FadeUp";
+import { useSiteContent, HtmlText } from "@/lib/site-content";
 
 export const Route = createFileRoute("/tee")({
   head: () => ({
@@ -17,12 +18,19 @@ export const Route = createFileRoute("/tee")({
 
 function Tee() {
   const numerals = ["I", "II", "III", "IV", "V", "VI"];
+  const t = useSiteContent({
+    "tee.hero.eyebrow": "Collection",
+    "tee.hero.title": "Mayve <em>Tee</em>",
+    "tee.hero.description": "Unisex essentials crafted for comfort and bold simplicity. Each piece is made to order — thoughtfully produced just for you.",
+    "tee.footer.note": "All pieces made to order · Production: 10–12 business days",
+    "tee.footer.cta": "Place an Order",
+  });
   return (
     <>
       <div className="collection-hero">
-        <p className="eyebrow" style={{ marginBottom: 12 }}>Collection</p>
-        <h1>Mayve <em>Tee</em></h1>
-        <p>Unisex essentials crafted for comfort and bold simplicity. Each piece is made to order — thoughtfully produced just for you.</p>
+        <p className="eyebrow" style={{ marginBottom: 12 }}>{t("tee.hero.eyebrow")}</p>
+        <HtmlText as="h1" html={t("tee.hero.title")} />
+        <p>{t("tee.hero.description")}</p>
       </div>
       <section className="section section-cream">
         <div className="grid-3">
@@ -39,9 +47,9 @@ function Tee() {
         </div>
         <div style={{ textAlign: "center", marginTop: 48 }}>
           <p style={{ fontSize: ".8rem", color: "var(--muted)", marginBottom: 16 }}>
-            All pieces made to order · Production: 10–12 business days
+            {t("tee.footer.note")}
           </p>
-          <Link to="/contact" className="btn btn-black">Place an Order</Link>
+          <Link to="/contact" className="btn btn-black">{t("tee.footer.cta")}</Link>
         </div>
       </section>
     </>
