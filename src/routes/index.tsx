@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { img } from "@/assets/images";
 import { FadeUp } from "@/components/FadeUp";
+import { useSiteContent, HtmlText } from "@/lib/site-content";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
