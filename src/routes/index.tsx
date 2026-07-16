@@ -18,16 +18,28 @@ export const Route = createFileRoute("/")({
 });
 
 function Home() {
+  const t = useSiteContent({
+    "home.hero.tag": "New Collection",
+    "home.hero.title": "Comfort Meets <em>Bold</em> Elegance",
+    "home.hero.description": "Designed for the modern woman who refuses to choose between looking good and feeling free.",
+    "home.hero.cta": "Explore Collection",
+    "home.about.eyebrow": "Our Story",
+    "home.about.title": "Freedom in Movement & <em>Expression</em>",
+    "home.about.description": "Mayve is a contemporary made-to-order brand rooted in the belief that style should never come at the expense of comfort. For the modern, multi-dimensional woman.",
+    "home.newarrivals.title": "New Arrivals",
+    "home.offset.title": "The Offset Collection",
+    "home.velora.title": "Velora — Elevated Occasion",
+  });
   return (
     <>
       <div className="hero">
         <img className="hero-bg" src={img.hero} alt="Mayve hero" />
         <div className="hero-big-text">MAYVE</div>
         <div className="hero-content">
-          <span className="hero-tag">New Collection</span>
-          <h1>Comfort<br />Meets <em>Bold</em><br />Elegance</h1>
-          <p>Designed for the modern woman who refuses to choose between looking good and feeling free.</p>
-          <Link to="/tee" className="btn btn-white">Explore Collection</Link>
+          <span className="hero-tag">{t("home.hero.tag")}</span>
+          <HtmlText as="h1" html={t("home.hero.title")} />
+          <p>{t("home.hero.description")}</p>
+          <Link to="/tee" className="btn btn-white">{t("home.hero.cta")}</Link>
         </div>
         <div className="hero-cards">
           <div className="hero-card">
@@ -65,7 +77,7 @@ function Home() {
 
       <section className="section section-alt">
         <FadeUp className="sh">
-          <h2>New Arrivals</h2>
+          <h2>{t("home.newarrivals.title")}</h2>
           <Link to="/tee" className="see-all">See All</Link>
         </FadeUp>
         <div className="na-grid">
@@ -85,7 +97,7 @@ function Home() {
 
       <section className="section">
         <FadeUp className="sh">
-          <h2>The Offset Collection</h2>
+          <h2>{t("home.offset.title")}</h2>
           <Link to="/bespoke" className="see-all">See All</Link>
         </FadeUp>
         <div className="grid-4">
@@ -107,16 +119,16 @@ function Home() {
           <img src={img.aboutBand} alt="Our story" loading="lazy" />
         </div>
         <div className="about-band-copy">
-          <p className="eyebrow">Our Story</p>
-          <h2>Freedom in<br />Movement &amp;<br /><em>Expression</em></h2>
-          <p>Mayve is a contemporary made-to-order brand rooted in the belief that style should never come at the expense of comfort. For the modern, multi-dimensional woman.</p>
+          <p className="eyebrow">{t("home.about.eyebrow")}</p>
+          <HtmlText as="h2" html={t("home.about.title")} />
+          <p>{t("home.about.description")}</p>
           <div><Link to="/about" className="btn btn-outline-w">Read Our Story</Link></div>
         </div>
       </div>
 
       <section className="section section-cream">
         <FadeUp className="sh">
-          <h2>Velora — Elevated Occasion</h2>
+          <h2>{t("home.velora.title")}</h2>
           <Link to="/bespoke" className="see-all">See All</Link>
         </FadeUp>
         <div className="grid-4">
@@ -134,3 +146,4 @@ function Home() {
     </>
   );
 }
+
