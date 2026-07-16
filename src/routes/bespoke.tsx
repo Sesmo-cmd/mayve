@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { img } from "@/assets/images";
 import { FadeUp } from "@/components/FadeUp";
+import { useSiteContent, HtmlText } from "@/lib/site-content";
 
 export const Route = createFileRoute("/bespoke")({
   head: () => ({
@@ -16,13 +17,20 @@ export const Route = createFileRoute("/bespoke")({
 });
 
 function Bespoke() {
+  const t = useSiteContent({
+    "bespoke.hero.eyebrow": "Portfolio",
+    "bespoke.hero.title": "Bespoke <em>Portfolio</em>",
+    "bespoke.hero.description": "An exclusive look into Mayve's bespoke world — where ideas are transformed into refined, made-to-measure pieces. From initial concept to the final garment, each design reflects individuality, precision, and craftsmanship.",
+    "bespoke.hero.cta": "Ready to Create Something Uniquely Yours?",
+    "bespoke.velora.title": "Velora Collection",
+  });
   return (
     <>
       <div className="bespoke-hero">
-        <p className="eyebrow">Portfolio</p>
-        <h1>Bespoke <em>Portfolio</em></h1>
-        <p>An exclusive look into Mayve's bespoke world — where ideas are transformed into refined, made-to-measure pieces. From initial concept to the final garment, each design reflects individuality, precision, and craftsmanship.</p>
-        <Link to="/contact" className="btn btn-black">Ready to Create Something Uniquely Yours?</Link>
+        <p className="eyebrow">{t("bespoke.hero.eyebrow")}</p>
+        <HtmlText as="h1" html={t("bespoke.hero.title")} />
+        <p>{t("bespoke.hero.description")}</p>
+        <Link to="/contact" className="btn btn-black">{t("bespoke.hero.cta")}</Link>
       </div>
       <div className="bespoke-mosaic">
         {img.bespoke.map((src, i) => (
@@ -32,7 +40,7 @@ function Bespoke() {
         ))}
       </div>
       <section className="section section-cream">
-        <div className="sh"><h2>Velora Collection</h2></div>
+        <div className="sh"><h2>{t("bespoke.velora.title")}</h2></div>
         <div className="grid-4">
           {img.velora.map((src, i) => (
             <FadeUp key={i} className="pcard">
