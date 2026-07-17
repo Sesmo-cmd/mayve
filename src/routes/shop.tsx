@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { whatsappLink } from "@/lib/whatsapp";
+import { whatsappLink, logWhatsappClick } from "@/lib/whatsapp";
 
 export const Route = createFileRoute("/shop")({
   head: () => ({
