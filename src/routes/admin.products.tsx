@@ -346,6 +346,7 @@ function ProductDialog({ initial, onClose, onSaved }: { initial: Partial<Product
       colors: form.colors ?? [],
       stock: Number(form.stock ?? 0),
       available: form.available ?? true,
+      featured: form.featured ?? false,
       images: form.images ?? [],
     };
     const op = form.id
