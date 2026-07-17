@@ -16,6 +16,7 @@ type Product = {
   colors: string[];
   stock: number;
   available: boolean;
+  featured: boolean;
   images: string[];
 };
 
