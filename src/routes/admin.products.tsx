@@ -391,10 +391,16 @@ function ProductDialog({ initial, onClose, onSaved }: { initial: Partial<Product
           <Field label="Colors (comma separated)">
             <input className={inp} value={(form.colors ?? []).join(", ")} onChange={(e) => set("colors", e.target.value.split(",").map(s => s.trim()).filter(Boolean))} />
           </Field>
-          <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" checked={form.available ?? true} onChange={(e) => set("available", e.target.checked)} />
-            Available for purchase
-          </label>
+          <div className="flex flex-wrap gap-5">
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={form.available ?? true} onChange={(e) => set("available", e.target.checked)} />
+              Available (in stock)
+            </label>
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={form.featured ?? false} onChange={(e) => set("featured", e.target.checked)} />
+              <span className="inline-flex items-center gap-1">Featured <span className="text-[10px] uppercase tracking-wider text-[#a88356]">Homepage</span></span>
+            </label>
+          </div>
 
           <div>
             <div className="text-[11px] font-medium uppercase tracking-wider text-neutral-600 mb-2">Images</div>
