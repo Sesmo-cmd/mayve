@@ -51,6 +51,7 @@ function ShopPage() {
                     href={whatsappLink(data?.whatsapp ?? "", p.name)}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => logWhatsappClick({ productId: p.id, productName: p.name, source: "shop" })}
                     className="btn btn-white"
                     style={{ marginTop: 12, display: "inline-block" }}
                   >
