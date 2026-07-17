@@ -16,24 +16,122 @@ export type Database = {
     Tables: {
       app_settings: {
         Row: {
+          address: string
           brand_name: string
+          email: string
+          facebook_url: string
           id: number
+          instagram_url: string
+          logo_url: string
+          tagline: string
+          tiktok_url: string
           updated_at: string
           whatsapp_number: string
+          whatsapp_template: string
         }
         Insert: {
+          address?: string
           brand_name?: string
+          email?: string
+          facebook_url?: string
           id?: number
+          instagram_url?: string
+          logo_url?: string
+          tagline?: string
+          tiktok_url?: string
           updated_at?: string
           whatsapp_number?: string
+          whatsapp_template?: string
         }
         Update: {
+          address?: string
           brand_name?: string
+          email?: string
+          facebook_url?: string
           id?: number
+          instagram_url?: string
+          logo_url?: string
+          tagline?: string
+          tiktok_url?: string
           updated_at?: string
           whatsapp_number?: string
+          whatsapp_template?: string
         }
         Relationships: []
+      }
+      collections: {
+        Row: {
+          cover_image: string
+          created_at: string
+          description: string
+          id: string
+          name: string
+          slug: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          cover_image?: string
+          created_at?: string
+          description?: string
+          id?: string
+          name: string
+          slug: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          cover_image?: string
+          created_at?: string
+          description?: string
+          id?: string
+          name?: string
+          slug?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      lookbook_images: {
+        Row: {
+          collection_id: string | null
+          created_at: string
+          id: string
+          image: string
+          season: string
+          sort_order: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          collection_id?: string | null
+          created_at?: string
+          id?: string
+          image: string
+          season?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Update: {
+          collection_id?: string | null
+          created_at?: string
+          id?: string
+          image?: string
+          season?: string
+          sort_order?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "lookbook_images_collection_id_fkey"
+            columns: ["collection_id"]
+            isOneToOne: false
+            referencedRelation: "collections"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       orders: {
         Row: {
@@ -79,6 +177,36 @@ export type Database = {
           },
         ]
       }
+      product_collections: {
+        Row: {
+          collection_id: string
+          product_id: string
+        }
+        Insert: {
+          collection_id: string
+          product_id: string
+        }
+        Update: {
+          collection_id?: string
+          product_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_collections_collection_id_fkey"
+            columns: ["collection_id"]
+            isOneToOne: false
+            referencedRelation: "collections"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "product_collections_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       products: {
         Row: {
           available: boolean
@@ -86,6 +214,7 @@ export type Database = {
           colors: string[]
           created_at: string
           description: string | null
+          featured: boolean
           id: string
           images: string[]
           name: string
@@ -100,6 +229,7 @@ export type Database = {
           colors?: string[]
           created_at?: string
           description?: string | null
+          featured?: boolean
           id?: string
           images?: string[]
           name: string
@@ -114,6 +244,7 @@ export type Database = {
           colors?: string[]
           created_at?: string
           description?: string | null
+          featured?: boolean
           id?: string
           images?: string[]
           name?: string
@@ -142,6 +273,39 @@ export type Database = {
         }
         Relationships: []
       }
+      testimonials: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          photo: string
+          published: boolean
+          quote: string
+          sort_order: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          photo?: string
+          published?: boolean
+          quote: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          photo?: string
+          published?: boolean
+          quote?: string
+          sort_order?: number
+          updated_at?: string
+        }
+        Relationships: []
+      }
       user_roles: {
         Row: {
           created_at: string
@@ -162,6 +326,38 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      whatsapp_clicks: {
+        Row: {
+          created_at: string
+          id: string
+          product_id: string | null
+          product_name: string
+          source: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          product_id?: string | null
+          product_name?: string
+          source?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          product_id?: string | null
+          product_name?: string
+          source?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "whatsapp_clicks_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

@@ -16,6 +16,7 @@ type Product = {
   colors: string[];
   stock: number;
   available: boolean;
+  featured: boolean;
   images: string[];
 };
 
@@ -156,7 +157,7 @@ function ProductsPage() {
               <option value="stock">Sort: Stock</option>
             </select>
             <button
-              onClick={() => setEditing({ name: "", description: "", price: 0, category: "", sizes: [], colors: [], stock: 0, available: true, images: [] })}
+              onClick={() => setEditing({ name: "", description: "", price: 0, category: "", sizes: [], colors: [], stock: 0, available: true, featured: false, images: [] })}
               className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3.5 py-1.5 text-[13px] font-medium text-white hover:bg-indigo-700 shadow-sm"
             >
               <Plus size={14} /> Add Product
@@ -345,6 +346,7 @@ function ProductDialog({ initial, onClose, onSaved }: { initial: Partial<Product
       colors: form.colors ?? [],
       stock: Number(form.stock ?? 0),
       available: form.available ?? true,
+      featured: form.featured ?? false,
       images: form.images ?? [],
     };
     const op = form.id
@@ -389,10 +391,16 @@ function ProductDialog({ initial, onClose, onSaved }: { initial: Partial<Product
           <Field label="Colors (comma separated)">
             <input className={inp} value={(form.colors ?? []).join(", ")} onChange={(e) => set("colors", e.target.value.split(",").map(s => s.trim()).filter(Boolean))} />
           </Field>
-          <label className="flex items-center gap-2 text-sm">
-            <input type="checkbox" checked={form.available ?? true} onChange={(e) => set("available", e.target.checked)} />
-            Available for purchase
-          </label>
+          <div className="flex flex-wrap gap-5">
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={form.available ?? true} onChange={(e) => set("available", e.target.checked)} />
+              Available (in stock)
+            </label>
+            <label className="flex items-center gap-2 text-sm">
+              <input type="checkbox" checked={form.featured ?? false} onChange={(e) => set("featured", e.target.checked)} />
+              <span className="inline-flex items-center gap-1">Featured <span className="text-[10px] uppercase tracking-wider text-[#a88356]">Homepage</span></span>
+            </label>
+          </div>
 
           <div>
             <div className="text-[11px] font-medium uppercase tracking-wider text-neutral-600 mb-2">Images</div>

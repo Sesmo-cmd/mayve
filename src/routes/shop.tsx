@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { whatsappLink } from "@/lib/whatsapp";
+import { whatsappLink, logWhatsappClick } from "@/lib/whatsapp";
 
 export const Route = createFileRoute("/shop")({
   head: () => ({
@@ -51,6 +51,7 @@ function ShopPage() {
                     href={whatsappLink(data?.whatsapp ?? "", p.name)}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => logWhatsappClick({ productId: p.id, productName: p.name, source: "shop" })}
                     className="btn btn-white"
                     style={{ marginTop: 12, display: "inline-block" }}
                   >
