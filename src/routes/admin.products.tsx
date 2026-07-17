@@ -157,7 +157,7 @@ function ProductsPage() {
               <option value="stock">Sort: Stock</option>
             </select>
             <button
-              onClick={() => setEditing({ name: "", description: "", price: 0, category: "", sizes: [], colors: [], stock: 0, available: true, images: [] })}
+              onClick={() => setEditing({ name: "", description: "", price: 0, category: "", sizes: [], colors: [], stock: 0, available: true, featured: false, images: [] })}
               className="inline-flex items-center gap-1.5 rounded-lg bg-indigo-600 px-3.5 py-1.5 text-[13px] font-medium text-white hover:bg-indigo-700 shadow-sm"
             >
               <Plus size={14} /> Add Product
