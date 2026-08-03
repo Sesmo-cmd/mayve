@@ -47,14 +47,6 @@ function LoginPage() {
           </div>
 
 
-      {/* Right: form */}
-      <section className="flex-1 flex items-center justify-center px-6 py-16">
-        <div className="w-full max-w-[380px]">
-          <div className="lg:hidden flex items-center gap-3 mb-10">
-            <span className="text-[11px] tracking-[0.42em] font-medium text-neutral-700">MAYVE</span>
-            <span className="h-px w-6 bg-neutral-300" />
-            <span className="text-[10px] tracking-[0.32em] text-neutral-400">STUDIO ADMIN</span>
-          </div>
 
           <p className="text-[10px] uppercase tracking-[0.36em] text-neutral-400 mb-4">
             {mode === "signin" ? "Sign in" : "Sign up"}
