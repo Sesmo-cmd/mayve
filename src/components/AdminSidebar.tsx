@@ -47,10 +47,10 @@ export function AdminSidebar() {
         }`}
       >
         {/* Brand */}
-        <div className="px-7 pt-9 pb-8">
-          <div className="text-[22px] font-semibold tracking-[0.24em] leading-none">MAYVE</div>
-          <div className="text-[10px] uppercase tracking-[0.3em] text-white/40 mt-2.5">Atelier CMS</div>
+        <div className="px-7 pt-8 pb-7">
+          <img src={logo.url} alt="Mayve" className="h-14 w-auto object-contain" />
         </div>
+
 
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto px-3">
