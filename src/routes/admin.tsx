@@ -53,7 +53,7 @@ function Gate() {
   const initials = (user.email ?? "A").slice(0, 2).toUpperCase();
 
   return (
-    <div className="flex min-h-screen bg-[#f5f1ea] text-neutral-900 antialiased">
+    <div className="admin-shell flex min-h-screen bg-[#f5f1ea] text-neutral-900 antialiased">
       <AdminSidebar />
       <main className="flex-1 min-w-0 pt-14 md:pt-0 flex flex-col">
         <header className="hidden md:flex items-center justify-end px-8 pt-6">

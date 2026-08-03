@@ -37,43 +37,16 @@ function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex bg-[#f5f1ea] text-neutral-900">
-      {/* Left: dark brand column */}
-      <aside className="hidden lg:flex w-[46%] xl:w-[42%] relative bg-[#0a0a0a] text-white flex-col justify-between p-14 overflow-hidden">
-        <div className="absolute inset-0 pointer-events-none opacity-[0.08]"
-             style={{ backgroundImage: "radial-gradient(1px 1px at 30% 20%, #fff, transparent), radial-gradient(1px 1px at 70% 65%, #fff, transparent), radial-gradient(1px 1px at 40% 85%, #fff, transparent)" }} />
-        <div className="absolute -bottom-40 -left-40 w-[520px] h-[520px] rounded-full bg-[#c9a67a] opacity-[0.06] blur-3xl" />
-
-        <div className="relative z-10 flex items-center gap-3">
-          <span className="text-[11px] tracking-[0.42em] font-medium text-white/70">MAYVE</span>
-          <span className="h-px w-8 bg-white/20" />
-          <span className="text-[10px] tracking-[0.32em] text-white/40">STUDIO ADMIN</span>
-        </div>
-
-        <div className="relative z-10 max-w-md">
-          <p className="text-[10px] uppercase tracking-[0.36em] text-[#c9a67a] mb-6">Private Portal</p>
-          <h2 className="font-serif text-[42px] leading-[1.08] tracking-tight text-white">
-            The atelier's<br />quiet workroom.
-          </h2>
-          <p className="mt-6 text-[13.5px] leading-relaxed text-white/55 max-w-sm">
-            A considered back-office for products, inventory and orders — reserved for the studio team.
-          </p>
-        </div>
-
-        <div className="relative z-10 flex items-center justify-between text-[10px] uppercase tracking-[0.28em] text-white/35">
-          <span>© Mayve</span>
-          <span>Secure Access</span>
-        </div>
-      </aside>
-
-      {/* Right: form */}
-      <section className="flex-1 flex items-center justify-center px-6 py-16">
+    <div className="admin-shell min-h-screen flex items-center justify-center bg-[#f5f1ea] text-neutral-900 px-6 py-16">
+      <section className="w-full flex items-center justify-center">
         <div className="w-full max-w-[380px]">
-          <div className="lg:hidden flex items-center gap-3 mb-10">
+          <div className="flex items-center gap-3 mb-10">
             <span className="text-[11px] tracking-[0.42em] font-medium text-neutral-700">MAYVE</span>
             <span className="h-px w-6 bg-neutral-300" />
             <span className="text-[10px] tracking-[0.32em] text-neutral-400">STUDIO ADMIN</span>
           </div>
+
+
 
           <p className="text-[10px] uppercase tracking-[0.36em] text-neutral-400 mb-4">
             {mode === "signin" ? "Sign in" : "Sign up"}
