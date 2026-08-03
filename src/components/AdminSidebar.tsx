@@ -28,7 +28,7 @@ export function AdminSidebar() {
     <>
       {/* Mobile topbar */}
       <div className="md:hidden fixed top-0 inset-x-0 z-40 flex items-center justify-between bg-[#0a0a0a] px-4 h-14 border-b border-white/10">
-        <span className="font-semibold tracking-[0.22em] text-white text-sm">MAYVE</span>
+        <img src={logo.url} alt="Mayve" className="h-9 w-auto object-contain" />
         <button onClick={() => setOpen((o) => !o)} aria-label="Toggle navigation" className="p-2 -mr-2 text-white">
           {open ? <X size={18} /> : <Menu size={18} />}
         </button>
