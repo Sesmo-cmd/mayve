@@ -49,7 +49,7 @@ export function AdminSidebar() {
       >
         {/* Brand */}
         <div className="px-7 pt-8 pb-7">
-          <img src={logo.url} alt="Mayve" className="h-14 w-auto object-contain" />
+          <img src={logo.url} alt="Mayve" className="h-24 w-auto object-contain -my-3" />
         </div>
 
 
