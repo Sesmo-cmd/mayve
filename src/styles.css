@@ -373,6 +373,28 @@
   .fu:not(.in):not(.pre) { }
 }
 
+/* MOBILE NAV */
+.nav-burger {
+  display: none;
+  background: none; border: none; cursor: pointer;
+  color: var(--black); padding: 6px; margin-right: -6px;
+}
+.nav-drawer {
+  position: fixed; top: 60px; left: 0; right: 0;
+  background: #fff; border-bottom: 1px solid #e8e3da;
+  max-height: 0; overflow: hidden;
+  transition: max-height .3s ease;
+}
+.nav-drawer.open { max-height: 80vh; overflow-y: auto; }
+.nav-drawer ul { padding: 8px 20px 16px; }
+.nav-drawer li + li { border-top: 1px solid #f0ece5; }
+.nav-drawer a {
+  display: block; padding: 14px 2px;
+  font-size: .78rem; letter-spacing: .14em; text-transform: uppercase;
+  color: #333;
+}
+.nav-drawer a.active { color: var(--warm); }
+
 /* RESPONSIVE */
 @media (max-width: 900px) {
   .hero-cards { display: none; }
@@ -393,5 +415,36 @@
   .hero-content { padding: 0 24px 36px; }
 }
 
+@media (max-width: 860px) {
+  .nav-center, .nav-right { display: none; }
+  .nav-burger { display: block; }
+}
+
+@media (max-width: 640px) {
+  .section { padding: 44px 20px; }
+  .sh { flex-direction: column; align-items: flex-start; gap: 12px; margin-bottom: 24px; }
+  .sh h2 { font-size: 1.6rem; }
+  .grid-3, .grid-4 { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .pcard-name { font-size: .92rem; }
+  .pcard-sub { font-size: .64rem; }
+  .hero-big-text { padding: 14px 18px; }
+  .about-band-copy { padding: 44px 24px; }
+  .aph-copy { padding: 48px 24px; }
+  .bespoke-hero { padding: 84px 20px 28px; }
+  .bespoke-mosaic { gap: 6px; }
+  .bm-wide { grid-column: span 2; }
+  .contact-wrap { padding: 110px 20px 72px; }
+  .contact-grid { flex-direction: column; gap: 28px; margin-bottom: 36px; }
+  .returns-layout { padding: 96px 20px 56px; }
+  .vision-band { padding: 56px 20px; }
+  .f-links { gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .ticker-track span { padding: 0 18px; }
+}
+
 .nav-logo-img { height: 48px; width: auto; display: block; }
 .f-logo-img { height: 56px; width: auto; display: block; }
+
+@media (max-width: 640px) {
+  .nav-logo-img { height: 38px; }
+  .f-logo-img { height: 44px; }
+}
