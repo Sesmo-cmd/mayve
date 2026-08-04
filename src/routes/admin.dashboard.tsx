@@ -37,18 +37,30 @@ function Dashboard() {
   });
 
   const kpis = [
-    { label: "Products", value: data?.totalProducts ?? 0, hint: `${data?.available ?? 0} live`, icon: ShoppingBag },
-    { label: "Featured", value: data?.featured ?? 0, hint: "on homepage", icon: Star },
-    { label: "WhatsApp clicks", value: data?.clicksTotal ?? 0, hint: `${data?.clicksWeek ?? 0} this week`, icon: MessageCircle },
-    { label: "Collections", value: data?.collections ?? 0, hint: `${data?.testimonials ?? 0} testimonials`, icon: Layers },
+    { label: "Products", value: data?.totalProducts ?? 0, hint: `${data?.available ?? 0} live`, icon: ShoppingBag, to: "/admin/products" as const },
+    { label: "Featured", value: data?.featured ?? 0, hint: "on homepage", icon: Star, to: "/admin/products" as const },
+    { label: "WhatsApp clicks", value: data?.clicksTotal ?? 0, hint: `${data?.clicksWeek ?? 0} this week`, icon: MessageCircle, to: "/admin/analytics" as const },
+    { label: "Collections", value: data?.collections ?? 0, hint: `${data?.testimonials ?? 0} testimonials`, icon: Layers, to: "/admin/collections" as const },
   ];
+
+  const products = (data?.products ?? []) as any[];
+  const tasks = [
+    { done: products.length > 0, label: "Add your first product", to: "/admin/products" as const },
+    { done: (data?.featured ?? 0) > 0, label: "Feature pieces on the homepage", to: "/admin/products" as const },
+    { done: products.every((p: any) => p.images?.length), label: "Add images to every product", to: "/admin/products" as const },
+    { done: (data?.lookbook.length ?? 0) > 0, label: "Upload lookbook photos", to: "/admin/lookbook" as const },
+    { done: (data?.testimonials ?? 0) > 0, label: "Add customer testimonials", to: "/admin/testimonials" as const },
+  ];
+  const openTasks = tasks.filter((t) => !t.done);
 
   return (
     <div className="space-y-8">
       <header>
         <p className="text-[11px] uppercase tracking-[0.28em] text-neutral-500">Overview</p>
-        <h1 className="mt-2 font-serif text-[32px] leading-tight text-neutral-900">Good day, Maison Mayve.</h1>
-        <p className="mt-2 text-sm text-neutral-600">A snapshot of your catalogue and customer inquiries.</p>
+        <h1 className="mt-2 font-serif text-[32px] leading-tight text-neutral-900">Dashboard</h1>
+        <p className="mt-2 text-sm text-neutral-600">
+          {new Date().toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })} · catalogue and customer inquiries at a glance.
+        </p>
       </header>
 
       {/* KPI cards */}
@@ -56,7 +68,7 @@ function Dashboard() {
         {kpis.map((k) => {
           const Icon = k.icon;
           return (
-            <div key={k.label} className="bg-white rounded-2xl border border-neutral-200/70 p-6">
+            <Link key={k.label} to={k.to} className="bg-white rounded-2xl border border-neutral-200/70 p-6 hover:border-neutral-300 transition block">
               <div className="flex items-start justify-between">
                 <div className="h-10 w-10 rounded-full bg-[#f5efe6] grid place-items-center">
                   <Icon size={16} className="text-[#a88356]" strokeWidth={1.75} />
@@ -65,10 +77,27 @@ function Dashboard() {
               <div className="mt-6 text-[30px] font-serif text-neutral-900 leading-none tabular-nums">{k.value}</div>
               <div className="mt-2.5 text-[13px] font-medium text-neutral-800">{k.label}</div>
               <div className="text-[12px] text-neutral-500 mt-0.5">{k.hint}</div>
-            </div>
+            </Link>
           );
         })}
       </div>
+
+      {/* Needs attention */}
+      {openTasks.length > 0 && (
+        <section className="bg-white rounded-2xl border border-neutral-200/70 p-6">
+          <div className="text-[11px] font-semibold tracking-[0.22em] text-neutral-900">NEEDS ATTENTION</div>
+          <ul className="mt-4 space-y-2">
+            {openTasks.map((t) => (
+              <li key={t.label}>
+                <Link to={t.to} className="flex items-center justify-between rounded-lg border border-neutral-100 px-4 py-3 text-[13px] text-neutral-800 hover:bg-neutral-50">
+                  <span>{t.label}</span>
+                  <ArrowRight size={13} className="text-neutral-400" />
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       {/* Quick actions + recent inquiries */}
       <div className="grid gap-4 lg:grid-cols-[1fr_320px]">
