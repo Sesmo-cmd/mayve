@@ -5,7 +5,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/lib/auth-context";
-import whiteLogo from "@/assets/mayve-logo-white.png";
+import logo from "@/assets/mayve-logo.png.asset.json";
 
 const items = [
   { to: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -28,7 +28,7 @@ export function AdminSidebar() {
     <>
       {/* Mobile topbar */}
       <div className="md:hidden fixed top-0 inset-x-0 z-40 flex items-center justify-between bg-[#0a0a0a] px-4 h-14 border-b border-white/10">
-        <img src={whiteLogo} alt="Mayve" className="h-11 w-auto object-contain" />
+        <img src={logo.url} alt="Mayve" className="h-9 w-auto object-contain" />
         <button onClick={() => setOpen((o) => !o)} aria-label="Toggle navigation" className="p-2 -mr-2 text-white">
           {open ? <X size={18} /> : <Menu size={18} />}
         </button>
@@ -48,8 +48,8 @@ export function AdminSidebar() {
         }`}
       >
         {/* Brand */}
-        <div className="px-6 pt-7 pb-5">
-          <img src={whiteLogo} alt="Mayve" className="h-32 w-auto object-contain" />
+        <div className="px-7 pt-8 pb-7">
+          <img src={logo.url} alt="Mayve" className="h-24 w-auto object-contain -my-3" />
         </div>
 
 
