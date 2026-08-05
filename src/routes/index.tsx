@@ -104,10 +104,11 @@ function Home() {
           {[img.offset1, img.offset2, img.offset3, img.offset4].map((src, i) => (
             <FadeUp key={i} className="pcard">
               <div className="pcard-img">
-                <span className="pcard-badge">Bespoke</span>
                 <img src={src} alt={`Offset ${i + 1}`} loading="lazy" />
               </div>
+              <span className="pcard-badge">Bespoke</span>
               <div className="pcard-name">Offset {["I", "II", "III", "IV"][i]}</div>
+
               <div className="pcard-sub">Made to Measure</div>
             </FadeUp>
           ))}

@@ -37,10 +37,11 @@ function Tee() {
           {img.tee.map((src, i) => (
             <FadeUp key={i} className="pcard">
               <div className="pcard-img">
-                <span className="pcard-badge">Made to Order</span>
                 <img src={src} alt={`Tee ${numerals[i]}`} loading="lazy" />
               </div>
+              <span className="pcard-badge">Made to Order</span>
               <div className="pcard-name">When Life Gives You Lemons — {numerals[i]}</div>
+
               <div className="pcard-sub">Mayve Tee</div>
             </FadeUp>
           ))}
