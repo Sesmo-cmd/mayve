@@ -53,7 +53,6 @@ function ShopPage() {
                     rel="noopener noreferrer"
                     onClick={() => logWhatsappClick({ productId: p.id, productName: p.name, source: "shop" })}
                     className="btn btn-white"
-                    style={{ marginTop: 12, display: "inline-block" }}
                   >
                     Buy via WhatsApp
                   </a>
