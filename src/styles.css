@@ -431,15 +431,73 @@
   .about-band-copy { padding: 44px 24px; }
   .aph-copy { padding: 48px 24px; }
   .bespoke-hero { padding: 84px 20px 28px; }
+  .bespoke-hero p { margin-bottom: 44px; }
+  .bespoke-hero .btn { margin-top: 8px; }
   .bespoke-mosaic { gap: 6px; }
   .bm-wide { grid-column: span 2; }
   .contact-wrap { padding: 110px 20px 72px; }
   .contact-grid { flex-direction: column; gap: 28px; margin-bottom: 36px; }
+  .contact-wrap .btn {
+    width: 100%;
+    max-width: 320px;
+    margin-top: 16px;
+    padding: 14px 24px;
+    text-align: center;
+  }
   .returns-layout { padding: 96px 20px 56px; }
   .vision-band { padding: 56px 20px; }
   .f-links { gap: 16px; flex-wrap: wrap; justify-content: center; }
   .ticker-track span { padding: 0 18px; }
+
+  /* New-arrival / shop cards: vertical on mobile so buttons have room */
+  .na-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px;
+  }
+  .na-card img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+  }
+  .na-card-info {
+    width: 100%;
+  }
+  .na-card-info h4 {
+    font-size: 1rem;
+    margin-bottom: 8px;
+  }
+  .na-card-info p {
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .na-card-info .btn,
+  .na-card-info .btn-white {
+    width: 100%;
+    margin-top: 16px;
+    text-align: center;
+    padding: 14px 20px;
+  }
+
+  /* Hero CTA: larger tap target and more breathing room */
+  .hero-content .btn {
+    width: 100%;
+    max-width: 320px;
+    padding: 16px 24px;
+    text-align: center;
+  }
+
+  /* About band CTA */
+  .about-band-copy .btn {
+    width: 100%;
+    max-width: 280px;
+    padding: 14px 24px;
+    text-align: center;
+  }
 }
+
 
 .nav-logo-img { height: 48px; width: auto; display: block; }
 .f-logo-img { height: 56px; width: auto; display: block; }
