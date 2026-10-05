@@ -1,10 +1,10 @@
 import { Link } from "@tanstack/react-router";
-import logo from "@/assets/mayve-logo.png.asset.json";
+import logoUrl from "@/assets/mayve-logo-trim.png";
 
 export function Footer() {
   return (
     <footer className="footer">
-      <img src={logo.url} alt="Mayve" className="f-logo-img" />
+      <img src={logoUrl} alt="Mayve" className="f-logo-img" />
       <span className="f-copy">
         © 2026 Mayve
         <Link to="/admin/login" aria-label="Studio" title="Studio" className="f-dot">·</Link>
