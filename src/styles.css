@@ -506,6 +506,6 @@
 .f-logo-img { height: 72px; width: auto; display: block; }
 
 @media (max-width: 640px) {
-  .nav-logo-img { height: 44px; }
-  .f-logo-img { height: 56px; }
+  .nav-logo-img { height: 38px; }
+  .f-logo-img { height: 52px; }
 }
