@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import logoUrl from "@/assets/mayve-logo-trim.png";
+import logoUrl from "@/assets/mayve-logo-horizontal.png";
 
 const links = [
   { to: "/", label: "Home", exact: true },
