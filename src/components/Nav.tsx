@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import logo from "@/assets/mayve-logo.png.asset.json";
+import logoUrl from "@/assets/mayve-logo-trim.png";
 
 const links = [
   { to: "/", label: "Home", exact: true },
@@ -19,7 +19,7 @@ export function Nav() {
   return (
     <nav className="nav">
       <Link to="/" className="nav-logo" aria-label="Mayve home" onClick={() => setOpen(false)}>
-        <img src={logo.url} alt="Mayve" className="nav-logo-img" />
+        <img src={logoUrl} alt="Mayve" className="nav-logo-img" />
       </Link>
       <ul className="nav-center">
         <li><Link to="/" activeProps={{ className: "active" }} activeOptions={{ exact: true }}>Home</Link></li>
