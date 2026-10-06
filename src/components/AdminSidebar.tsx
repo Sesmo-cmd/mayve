@@ -29,7 +29,7 @@ export function AdminSidebar() {
       {/* Mobile topbar */}
       <div className="md:hidden fixed top-0 inset-x-0 z-40 flex items-center justify-between bg-[#0a0a0a] px-4 h-14 border-b border-white/10">
         <Link to="/" aria-label="Back to Mayve store" className="flex items-center">
-          <img src={logoUrl} alt="Mayve" className="h-10 w-auto object-contain" />
+          <img src={logoUrl} alt="Mayve" className="h-7 w-auto object-contain" />
         </Link>
         <button onClick={() => setOpen((o) => !o)} aria-label="Toggle navigation" className="p-2 -mr-2 text-white">
           {open ? <X size={18} /> : <Menu size={18} />}
@@ -52,7 +52,7 @@ export function AdminSidebar() {
         {/* Brand */}
         <div className="px-5 pt-8 pb-6">
           <Link to="/" aria-label="Back to Mayve store" className="block">
-            <img src={logoUrl} alt="Mayve" className="h-20 w-auto object-contain" />
+            <img src={logoUrl} alt="Mayve" className="h-12 w-auto object-contain" />
           </Link>
         </div>
 
