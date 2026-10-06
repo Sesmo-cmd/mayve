@@ -5,7 +5,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@/lib/auth-context";
-import logoUrl from "@/assets/mayve-logo-horizontal.png";
+import logoUrl from "@/assets/mayve-logo-trim.png";
 
 const items = [
   { to: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -52,7 +52,7 @@ export function AdminSidebar() {
         {/* Brand */}
         <div className="px-5 pt-8 pb-6">
           <Link to="/" aria-label="Back to Mayve store" className="block">
-            <img src={logoUrl} alt="Mayve" className="h-[50px] w-auto object-contain" />
+            <img src={logoUrl} alt="Mayve" className="h-20 w-auto object-contain" />
           </Link>
         </div>
 

@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import logoUrl from "@/assets/mayve-logo-horizontal.png";
+import logoUrl from "@/assets/mayve-logo-trim.png";
 
 export function Footer() {
   return (
