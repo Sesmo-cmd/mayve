@@ -28,7 +28,7 @@ function ShopPage() {
   const products = data?.products ?? [];
 
   return (
-    <section className="section">
+    <section className="section section-top">
       <div className="sh">
         <h2>Shop</h2>
       </div>
