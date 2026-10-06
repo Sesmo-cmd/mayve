@@ -40,7 +40,7 @@ function Dashboard() {
     { label: "Products", value: data?.totalProducts ?? 0, hint: `${data?.available ?? 0} live`, icon: ShoppingBag, to: "/admin/products" as const },
     { label: "Featured", value: data?.featured ?? 0, hint: "on homepage", icon: Star, to: "/admin/products" as const },
     { label: "WhatsApp clicks", value: data?.clicksTotal ?? 0, hint: `${data?.clicksWeek ?? 0} this week`, icon: MessageCircle, to: "/admin/analytics" as const },
-    { label: "Collections", value: data?.collections ?? 0, hint: `${data?.testimonials ?? 0} testimonials`, icon: Layers, to: "/admin/collections" as const },
+    { label: "Collections", value: data?.collections ?? 0, hint: "curated stories", icon: Layers, to: "/admin/collections" as const },
   ];
 
   const products = (data?.products ?? []) as any[];
