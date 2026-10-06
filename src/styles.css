@@ -502,8 +502,8 @@
 }
 
 
-/* Horizontal logo lockup (mark + wordmark, 958x224) */
-.nav-logo-img { height: 88px; width: auto; display: block; }
+/* Original stacked Mayve logo */
+.nav-logo-img { height: 52px; width: auto; display: block; }
 .f-logo-img { height: 72px; width: auto; display: block; }
 
 @media (max-width: 640px) {
@@ -511,6 +511,6 @@
   .hero { margin-top: 88px; height: calc(100vh - 88px); }
   .collection-hero { margin-top: 88px; }
   .nav-drawer { top: 88px; }
-  .nav-logo-img { height: 60px; }
-  .f-logo-img { height: 56px; }
+  .nav-logo-img { height: 32px; }
+  .f-logo-img { height: 48px; }
 }
